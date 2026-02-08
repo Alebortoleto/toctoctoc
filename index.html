@@ -3,150 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOC TOC TOC - Sistema Integrado</title>
+    <title>TOC TOC TOC</title>
     <style>
-        :root { --primary: #4db6ac; --secondary: #00796b; --bg: #e0f7fa; --white: #ffffff; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: var(--bg); color: #333; }
-        .container { max-width: 600px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
-        .screen { display: none; padding: 20px; }
-        .active { display: block; }
-        .card { background: var(--white); padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-        button { background: var(--primary); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
-        .grid img { width: 100%; border-radius: 10px; cursor: pointer; }
-        .nav-tabs { display: flex; justify-content: space-around; background: #fff; padding: 10px; position: sticky; bottom: 0; border-top: 1px solid #ddd; }
-        .nav-tabs span { font-size: 12px; cursor: pointer; color: var(--secondary); font-weight: bold; }
-        table { width: 100%; font-size: 12px; border-collapse: collapse; margin-top: 10px; }
-        th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
+        :root { --cor-fundo: #e0f7fa; --cor-detalhe: #00796b; }
+        body { font-family: 'Comic Sans MS', sans-serif; background: var(--cor-fundo); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        .app-container { width: 100%; max-width: 400px; height: 90vh; background: white; border-radius: 30px; position: relative; display: flex; flex-direction: column; align-items: center; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        /* Telas */
+        .tela { display: none; text-align: center; width: 100%; height: 100%; flex-direction: column; justify-content: space-around; }
+        .ativa { display: flex; }
+
+        /* A Porta (O Início de Tudo) */
+        .porta-img { width: 200px; cursor: pointer; transition: transform 0.2s; }
+        .porta-img:active { transform: scale(0.9); }
+
+        /* O Tatu e as Sensações */
+        .tatu-principal { width: 220px; margin-bottom: 20px; }
+        .grid-icones { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 10px; }
+        .icon-btn { background: #f0f0f0; border-radius: 15px; padding: 10px; cursor: pointer; border: 2px solid transparent; }
+        .icon-btn img { width: 100%; }
+        .icon-btn:active { border-color: var(--cor-detalhe); background: #e0f2f1; }
+
+        h2 { color: var(--cor-detalhe); font-size: 20px; margin: 10px 0; }
+        .btn-voltar { font-size: 12px; color: #999; text-decoration: underline; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    
-    <div id="tela-login" class="screen active">
-        <div class="card">
-            <h2>TOC TOC TOC</h2>
-            <p>Selecione seu perfil:</p>
-            <select id="perfil-usuario" onchange="ajustarCampos()">
-                <option value="pai">Responsável (Pai/Mãe)</option>
-                <option value="professor">Professor / Escola</option>
-            </select>
+<div class="app-container">
 
-            <div id="campos-pai">
-                <input type="text" id="nome_pai" placeholder="Seu Nome">
-                <input type="text" id="apelido_crianca" placeholder="Apelido da Criança">
+    <div id="tela-1" class="tela ativa">
+        <h2>Bata na porta para falar...</h2>
+        <img src="assets/images/porta_fechada.png" class="porta-img" onclick="irPara(2)" alt="Porta do Mundo">
+        <p>"TOC TOC TOC"</p>
+    </div>
+
+    <div id="tela-2" class="tela">
+        <h2>Como está seu corpo?</h2>
+        <img src="assets/images/tatu_neutro.png" id="tatu-visual" class="tatu-principal">
+        
+        <div class="grid-icones">
+            <div class="icon-btn" onclick="sentir('no', 'tatu_enrolado.png')">
+                <img src="assets/images/sensacao_no.png"><p>Nó</p>
             </div>
-
-            <div id="campos-escola" style="display:none;">
-                <input type="text" id="nome_escola" placeholder="Nome da Escola">
-                <input type="password" id="senha_escola" placeholder="Senha da Instituição">
+            <div class="icon-btn" onclick="sentir('explosao', 'tatu_triste.png')">
+                <img src="assets/images/sensacao_raio.png"><p>Explosão</p>
             </div>
+            <div class="icon-btn" onclick="sentir('choro', 'tatu_triste.png')">
+                <img src="assets/images/sensacao_lagrimas.png"><p>Choro</p>
+            </div>
+        </div>
+        <div class="btn-voltar" onclick="irPara(1)">Voltar para a porta</div>
+    </div>
 
-            <button onclick="fazerLogin()">ACESSAR SISTEMA</button>
+    <div id="tela-3" class="tela">
+        <h2>Onde o Tatu estava?</h2>
+        <div class="grid-icones">
+            <div class="icon-btn" onclick="finalizar('Sala')"><img src="assets/images/sala.png"><p>Sala</p></div>
+            <div class="icon-btn" onclick="finalizar('Corredor')"><img src="assets/images/corredor.png"><p>Corredor</p></div>
+            <div class="icon-btn" onclick="finalizar('Pátio')"><img src="assets/images/patio.png"><p>Pátio</p></div>
         </div>
     </div>
 
-    <div id="tela-crianca" class="screen">
-        <h3 style="text-align:center">Olá! Onde você está?</h3>
-        <div class="grid">
-            <div onclick="salvar('Sala')"><img src="assets/images/sala.png"><p>Sala</p></div>
-            <div onclick="salvar('Corredor')"><img src="assets/images/corredor.png"><p>Corredor</p></div>
-            <div onclick="salvar('Pátio')"><img src="assets/images/patio.png"><p>Pátio</p></div>
-        </div>
-        <div style="text-align:center; margin: 20px;"><img src="assets/images/tatu_neutro.png" style="width:120px;"></div>
-        <h3 style="text-align:center">Como se sente?</h3>
-        <div class="grid">
-            <div onclick="salvar('Vergonha')"><img src="assets/images/sensacao_no.png"><p>Nó</p></div>
-            <div onclick="salvar('Raiva')"><img src="assets/images/sensacao_raio.png"><p>Explosão</p></div>
-            <div onclick="salvar('Tristeza')"><img src="assets/images/sensacao_lagrimas.png"><p>Choro</p></div>
-        </div>
-    </div>
-
-    <div id="tela-pai" class="screen">
-        <div class="card">
-            <h3>Relatórios de: <span id="view-crianca"></span></h3>
-            <table id="tabela-pai">
-                <thead><tr><th>Hora</th><th>O que houve?</th></tr></thead>
-                <tbody></tbody>
-            </table>
-            <button onclick="location.reload()" style="margin-top:20px; background:#666">Sair</button>
-        </div>
-    </div>
-
-    <div id="tela-professor" class="screen">
-        <div class="card">
-            <h3>Painel Escolar: <span id="view-escola"></span></h3>
-            <p style="font-size:11px">Relatos anônimos para acompanhamento pedagógico.</p>
-            <table id="tabela-escola">
-                <thead><tr><th>Aluno (Apelido)</th><th>Relato</th><th>Hora</th></tr></thead>
-                <tbody></tbody>
-            </table>
-            <button onclick="location.reload()" style="margin-top:20px; background:#666">Sair</button>
-        </div>
+    <div id="tela-4" class="tela">
+        <h2>O TOC TOC foi ouvido!</h2>
+        <img src="assets/images/porta_aberta.png" class="porta-img">
+        <p>Seus pais já sabem. <br> O Tatu não está mais sozinho.</p>
+        <button onclick="irPara(1)" style="background:var(--cor-detalhe); color:white; border:none; padding:15px; border-radius:10px; font-weight:bold;">Reiniciar</button>
     </div>
 
 </div>
 
 <script>
-    function ajustarCampos() {
-        const perfil = document.getElementById('perfil-usuario').value;
-        document.getElementById('campos-pai').style.display = perfil === 'pai' ? 'block' : 'none';
-        document.getElementById('campos-escola').style.display = perfil === 'professor' ? 'block' : 'none';
+    let dadosRelato = { sensacao: '', local: '' };
+
+    function irPara(tela) {
+        document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+        document.getElementById('tela-' + tela).classList.add('ativa');
     }
 
-    function fazerLogin() {
-        const perfil = document.getElementById('perfil-usuario').value;
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-
-        if(perfil === 'pai') {
-            const apelido = document.getElementById('apelido_crianca').value;
-            if(!apelido) return alert("Digite o apelido!");
-            localStorage.setItem('usuario_atual', apelido);
-            localStorage.setItem('perfil_atual', 'pai');
-            document.getElementById('tela-crianca').classList.add('active');
-            // Nota: Para demonstração, a criança usa o app, e o pai vê o histórico
-        } else {
-            document.getElementById('view-escola').innerText = document.getElementById('nome_escola').value;
-            document.getElementById('tela-professor').classList.add('active');
-            carregarTabelaEscola();
-        }
+    function sentir(tipo, imgTatu) {
+        dadosRelato.sensacao = tipo;
+        document.getElementById('tatu-visual').src = "assets/images/" + imgTatu;
+        setTimeout(() => irPara(3), 800); // Vai para o local após a criança escolher a sensação
     }
 
-    function salvar(msg) {
-        const apelido = localStorage.getItem('usuario_atual');
-        const logs = JSON.parse(localStorage.getItem('logs_toctoc_global')) || [];
-        logs.push({ 
-            crianca: apelido, 
-            evento: msg, 
-            hora: new Date().toLocaleTimeString().substring(0,5),
-            escola: "Escola Estadual" // Exemplo
-        });
-        localStorage.setItem('logs_toctoc_global', JSON.stringify(logs));
-        alert("O Tatu registrou sua voz!");
-        
-        // Se quiser ver o histórico do pai após registrar:
-        // (Em um app real, o pai veria isso em outro aparelho)
-        mostrarPainelPai();
-    }
-
-    function mostrarPainelPai() {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('tela-pai').classList.add('active');
-        const apelido = localStorage.getItem('usuario_atual');
-        document.getElementById('view-crianca').innerText = apelido;
-        const logs = JSON.parse(localStorage.getItem('logs_toctoc_global')) || [];
-        const meusLogs = logs.filter(l => l.crianca === apelido).reverse();
-        
-        document.querySelector('#tabela-pai tbody').innerHTML = meusLogs.map(l => 
-            `<tr><td>${l.hora}</td><td>${l.evento}</td></tr>`).join('');
-    }
-
-    function carregarTabelaEscola() {
-        const logs = JSON.parse(localStorage.getItem('logs_toctoc_global')) || [];
-        document.querySelector('#tabela-escola tbody').innerHTML = logs.reverse().map(l => 
-            `<tr><td>${l.crianca}</td><td>${l.evento}</td><td>${l.hora}</td></tr>`).join('');
+    function finalizar(local) {
+        dadosRelato.local = local;
+        console.log("ALERTA CLÍNICO: Criança reportou " + dadosRelato.sensacao + " no " + local);
+        irPara(4);
     }
 </script>
 </body>
