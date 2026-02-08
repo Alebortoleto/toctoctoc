@@ -11,7 +11,6 @@
         .tela { display: none; flex-direction: column; align-items: center; padding: 20px; height: 100%; overflow-y: auto; text-align: center; }
         .ativa { display: flex; }
         
-        /* Personagem e Ícones */
         .tatu-visual { width: 180px; height: 180px; object-fit: contain; margin: 15px 0; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
         .btn-opcao { border: 3px solid #eee; border-radius: 20px; padding: 10px; cursor: pointer; background: #fff; transition: 0.2s; display: flex; flex-direction: column; align-items: center; }
@@ -19,11 +18,9 @@
         .btn-opcao img { width: 90px; height: 90px; object-fit: contain; }
         .btn-opcao p { font-size: 11px; font-weight: bold; margin: 8px 0 0; color: #555; }
         
-        /* Cadastro e Botões */
         input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; }
         .btn-main { background: var(--primary); color: white; padding: 15px; width: 100%; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         
-        /* Relatório Estratificado */
         .log-card { background: #f1f8e9; border-left: 5px solid var(--primary); padding: 12px; margin-bottom: 12px; text-align: left; font-size: 12px; border-radius: 0 10px 10px 0; }
         .tag-alerta { background: var(--alert); color: white; padding: 3px 7px; border-radius: 4px; font-size: 10px; font-weight: bold; }
     </style>
@@ -33,7 +30,7 @@
 <div class="app">
 
     <div id="t0" class="tela ativa">
-        <h2 style="color:var(--primary)">Cadastro do Pai/Mãe</h2>
+        <h2 style="color:var(--primary)">Cadastro do Responsável</h2>
         <input type="text" id="p_nome" placeholder="Seu Nome">
         <input type="tel" id="p_zap" placeholder="WhatsApp">
         <input type="email" id="p_email" placeholder="E-mail">
@@ -44,18 +41,10 @@
     <div id="t1" class="tela">
         <h2>Como o Tatu está?</h2>
         <div class="grid">
-            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Feliz', 2, 'tatu_feliz.png')">
-                <img src="tatu_feliz.png"><p>FELIZ</p>
-            </div>
-            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Triste', 2, 'tatu_triste.png')">
-                <img src="tatu_triste.png"><p>TRISTE</p>
-            </div>
-            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Neutro', 2, 'tatu_neutro.png')">
-                <img src="tatu_neutro.png"><p>NORMAL</p>
-            </div>
-            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Enrolado/Vergonha', 2, 'tatu_enrolado.png')">
-                <img src="tatu_enrolado.png"><p>ENROLADO</p>
-            </div>
+            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Feliz', 2, 'tatu_feliz.png')"><img src="tatu_feliz.png"><p>FELIZ</p></div>
+            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Triste', 2, 'tatu_triste.png')"><img src="tatu_triste.png"><p>TRISTE</p></div>
+            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Neutro', 2, 'tatu_neutro.png')"><img src="tatu_neutro.png"><p>NORMAL</p></div>
+            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Enrolado', 2, 'tatu_enrolado.png')"><img src="tatu_enrolado.png"><p>ENROLADO</p></div>
         </div>
     </div>
 
@@ -76,15 +65,15 @@
         <div class="grid">
             <div class="btn-opcao" onclick="fluxo('Porta', 'Aberta', 4)"><img src="porta_aberta.png"><p>ABERTA</p></div>
             <div class="btn-opcao" onclick="fluxo('Porta', 'Fechada (Exclusão)', 4)"><img src="porta_fechada.png"><p>FECHADA</p></div>
-            <div class="btn-opcao" onclick="fluxo('Porta', 'Toc Toc (Batendo)', 4)"><img src="porta_batida.png"><p>BATENDO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Porta', 'Batendo (Toc Toc)', 4)"><img src="porta_batida.png"><p>BATENDO</p></div>
         </div>
     </div>
 
     <div id="t4" class="tela">
-        <h2>O que houve?</h2>
+        <h2>Quem estava lá?</h2>
         <div class="grid">
-            <div class="btn-opcao" onclick="fluxo('Agente', 'Professor', 5)"><img src="coroa.png"><p>COROA</p></div>
-            <div class="btn-opcao" onclick="fluxo('Agente', 'Colegas', 5)"><img src="muitos_tatus.png"><p>COLEGAS</p></div>
+            <div class="btn-opcao" onclick="fluxo('Agente', 'Professora', 5)"><img src="professora.png"><p>PROFESSORA</p></div>
+            <div class="btn-opcao" onclick="fluxo('Agente', 'Colegas', 5)"><img src="grupo_unido.png"><p>COLEGAS</p></div>
             <div class="btn-opcao" onclick="fluxo('Bullying', 'Riram de mim', 5)"><img src="grupo_bullying.png"><p>RIRAM</p></div>
             <div class="btn-opcao" onclick="fluxo('Bullying', 'Fiquei sozinho', 5)"><img src="grupo_sozinho.png"><p>ISOLADO</p></div>
         </div>
@@ -95,12 +84,12 @@
         <div class="grid">
             <div class="btn-opcao" onclick="fluxo('Corpo', 'Nó na garganta', 6, 'tatu_enrolado.png')"><img src="sensacao_no.png"><p>NÓ</p></div>
             <div class="btn-opcao" onclick="fluxo('Corpo', 'Raiva/Explosão', 6, 'tatu_triste.png')"><img src="sensacao_raio.png"><p>RAIO</p></div>
-            <div class="btn-opcao" onclick="fluxo('Corpo', 'Choro/Tristeza', 6, 'tatu_triste.png')"><img src="sensacao_lagrimas.png"><p>CHORO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Corpo', 'Choro', 6, 'tatu_triste.png')"><img src="sensacao_lagrimas.png"><p>CHORO</p></div>
         </div>
     </div>
 
     <div id="t6" class="tela">
-        <h2 style="color:var(--primary)">Histórico Clínico</h2>
+        <h2 style="color:var(--primary)">Relatório Clínica</h2>
         <div id="painel-clinico" style="width:100%"></div>
         <button class="btn-main" onclick="location.reload()">NOVA BATIDA</button>
     </div>
@@ -117,12 +106,8 @@
     }
 
     function salvarCadastro() {
-        const c = {
-            pai: document.getElementById('p_nome').value,
-            crianca: document.getElementById('c_nome').value,
-            zap: document.getElementById('p_zap').value
-        };
-        if(!c.pai || !c.crianca) return alert("Por favor, preencha o cadastro.");
+        const c = { pai: document.getElementById('p_nome').value, crianca: document.getElementById('c_nome').value };
+        if(!c.pai || !c.crianca) return alert("Preencha o cadastro.");
         localStorage.setItem('toctoc_config', JSON.stringify(c));
         location.reload();
     }
@@ -130,45 +115,21 @@
     function fluxo(cat, val, prox, img = null) {
         if(img) imgEstado = img;
         dadosRelato.push({cat: cat, val: val});
-        
         document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
-        const telaProx = document.getElementById('t'+prox);
-        telaProx.classList.add('ativa');
-
-        const avatar = document.getElementById('avatar-t' + prox);
-        if(avatar) avatar.src = imgEstado;
-
+        document.getElementById('t'+prox).classList.add('ativa');
+        const av = document.getElementById('avatar-t' + prox);
+        if(av) av.src = imgEstado;
         if(prox === 6) finalizar();
     }
 
     function finalizar() {
-        const hist = JSON.parse(localStorage.getItem('toctoc_hist')) || [];
-        const entrada = {
-            data: new Date().toLocaleString('pt-BR'),
-            itens: [...dadosRelato],
-            crianca: JSON.parse(localStorage.getItem('toctoc_config')).crianca
-        };
-        hist.push(entrada);
-        localStorage.setItem('toctoc_hist', JSON.stringify(hist));
-        gerarRelatorio();
-    }
-
-    function gerarRelatorio() {
-        const hist = JSON.parse(localStorage.getItem('toctoc_hist')) || [];
-        const container = document.getElementById('painel-clinico');
-        container.innerHTML = hist.reverse().map(log => {
-            let alerta = "";
-            const risco = log.itens.find(i => i.val.includes("Fechada") || i.val.includes("Professor") || i.val.includes("Riram"));
-            if(risco) alerta = '<span class="tag-alerta">RISCO DE EXCLUSÃO/TRAUMA</span>';
-
-            return `
-                <div class="log-card">
-                    <strong>${log.data} - ${log.crianca}</strong> ${alerta}<br>
-                    <div style="margin-top:5px;">
-                        ${log.itens.map(i => `• ${i.cat}: <strong>${i.val}</strong>`).join('<br>')}
-                    </div>
-                </div>
-            `;
+        const h = JSON.parse(localStorage.getItem('toctoc_hist')) || [];
+        h.push({ data: new Date().toLocaleString('pt-BR'), itens: [...dadosRelato], crianca: JSON.parse(localStorage.getItem('toctoc_config')).crianca });
+        localStorage.setItem('toctoc_hist', JSON.stringify(h));
+        const c = document.getElementById('painel-clinico');
+        c.innerHTML = h.reverse().map(l => {
+            let a = l.itens.find(i => i.val.includes("Fechada") || i.val.includes("Professora") || i.val.includes("Riram")) ? '<span class="tag-alerta">ALERTA DE EXCLUSÃO/TRAUMA</span>' : '';
+            return `<div class="log-card"><strong>${l.data} - ${l.crianca}</strong> ${a}<br>${l.itens.map(i => `• ${i.cat}: ${i.val}`).join('<br>')}</div>`;
         }).join('');
     }
 </script>
