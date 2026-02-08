@@ -13,10 +13,10 @@
         
         .tatu-visual { width: 180px; height: 180px; object-fit: contain; margin: 15px 0; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
-        .btn-opcao { border: 3px solid #eee; border-radius: 20px; padding: 10px; cursor: pointer; background: #fff; transition: 0.2s; display: flex; flex-direction: column; align-items: center; }
+        .btn-opcao { border: 3px solid #eee; border-radius: 20px; padding: 10px; cursor: pointer; background: #fff; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px; }
         .btn-opcao:active { transform: scale(0.95); border-color: var(--primary); }
-        .btn-opcao img { width: 90px; height: 90px; object-fit: contain; }
-        .btn-opcao p { font-size: 11px; font-weight: bold; margin: 8px 0 0; color: #555; }
+        .btn-opcao img { width: 80px; height: 80px; object-fit: contain; }
+        .btn-opcao p { font-size: 11px; font-weight: bold; margin: 8px 0 0; color: #555; line-height: 1.2; }
         
         input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; }
         .btn-main { background: var(--primary); color: white; padding: 15px; width: 100%; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; }
@@ -44,7 +44,7 @@
             <div class="btn-opcao" onclick="fluxo('Sentimento', 'Feliz', 2, 'tatu_feliz.png')"><img src="tatu_feliz.png"><p>FELIZ</p></div>
             <div class="btn-opcao" onclick="fluxo('Sentimento', 'Triste', 2, 'tatu_triste.png')"><img src="tatu_triste.png"><p>TRISTE</p></div>
             <div class="btn-opcao" onclick="fluxo('Sentimento', 'Neutro', 2, 'tatu_neutro.png')"><img src="tatu_neutro.png"><p>NORMAL</p></div>
-            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Enrolado', 2, 'tatu_enrolado.png')"><img src="tatu_enrolado.png"><p>ENROLADO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Sentimento', 'Quero me Isolar', 2, 'tatu_enrolado.png')"><img src="tatu_enrolado.png"><p>QUERO ME ISOLAR</p></div>
         </div>
     </div>
 
@@ -55,12 +55,12 @@
             <div class="btn-opcao" onclick="fluxo('Local', 'Sala de Aula', 3)"><img src="sala.png"><p>SALA</p></div>
             <div class="btn-opcao" onclick="fluxo('Local', 'Corredor', 3)"><img src="corredor.png"><p>CORREDOR</p></div>
             <div class="btn-opcao" onclick="fluxo('Local', 'Pátio', 3)"><img src="patio.png"><p>PÁTIO</p></div>
-            <div class="btn-opcao" onclick="fluxo('Local', 'Banheiro', 3)"><img src="corredor.png"><p>BANHEIRO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Local', 'Banheiro', 3)"><img src="banheiro.png"><p>BANHEIRO</p></div>
         </div>
     </div>
 
     <div id="t3" class="tela">
-        <h2>E a porta?</h2>
+        <h2>E a porta, como está para você?</h2>
         <img id="avatar-t3" class="tatu-visual">
         <div class="grid">
             <div class="btn-opcao" onclick="fluxo('Porta', 'Aberta', 4)"><img src="porta_aberta.png"><p>ABERTA</p></div>
@@ -82,8 +82,8 @@
     <div id="t5" class="tela">
         <h2>O corpo sente...</h2>
         <div class="grid">
-            <div class="btn-opcao" onclick="fluxo('Corpo', 'Nó na garganta', 6, 'tatu_enrolado.png')"><img src="sensacao_no.png"><p>NÓ</p></div>
-            <div class="btn-opcao" onclick="fluxo('Corpo', 'Raiva/Explosão', 6, 'tatu_triste.png')"><img src="sensacao_raio.png"><p>RAIO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Corpo', 'Nó na garganta', 6, 'tatu_enrolado.png')"><img src="sensacao_no.png"><p>NÓ NA GARGANTA</p></div>
+            <div class="btn-opcao" onclick="fluxo('Corpo', 'Raiva', 6, 'tatu_triste.png')"><img src="sensacao_raio.png"><p>RAIVA</p></div>
             <div class="btn-opcao" onclick="fluxo('Corpo', 'Choro', 6, 'tatu_triste.png')"><img src="sensacao_lagrimas.png"><p>CHORO</p></div>
         </div>
     </div>
