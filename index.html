@@ -21,23 +21,23 @@
     <div class="box">
         <div id="t1" class="tela ativa">
             <h2>Bata na porta...</h2>
-            <img src="assets/porta_batida.png" onclick="ir(2)">
+            <img src="porta_batida.png" onclick="ir(2)">
             <p>"TOC TOC TOC"</p>
         </div>
 
         <div id="t2" class="tela">
             <h2>O que o Tatu sente?</h2>
-            <img src="assets/tatu_neutro.png" id="tatu">
+            <img src="tatu_neutro.png" id="tatu">
             <div class="grid">
-                <div class="btn-icon" onclick="sentir('tatu_enrolado.png')"><img src="assets/sensacao_no.png"><p>Nó</p></div>
-                <div class="btn-icon" onclick="sentir('tatu_triste.png')"><img src="assets/sensacao_raio.png"><p>Raiva</p></div>
-                <div class="btn-icon" onclick="sentir('tatu_triste.png')"><img src="assets/sensacao_lagrimas.png"><p>Choro</p></div>
+                <div class="btn-icon" onclick="sentir('tatu_enrolado.png')"><img src="sensacao_no.png"><p>Nó</p></div>
+                <div class="btn-icon" onclick="sentir('tatu_triste.png')"><img src="sensacao_raio.png"><p>Raiva</p></div>
+                <div class="btn-icon" onclick="sentir('tatu_triste.png')"><img src="sensacao_lagrimas.png"><p>Choro</p></div>
             </div>
         </div>
 
         <div id="t3" class="tela">
             <h2>A porta abriu!</h2>
-            <img src="assets/porta_aberta.png">
+            <img src="porta_aberta.png">
             <p>Você não está mais sozinho.</p>
             <button onclick="location.reload()" style="margin-top:10px; padding:12px 20px; background:#00796b; color:white; border:none; border-radius:10px; cursor:pointer;">Recomeçar</button>
         </div>
@@ -49,8 +49,7 @@
             document.getElementById('t'+n).classList.add('ativa');
         }
         function sentir(imgNome) {
-            // Atualiza a imagem do tatu usando o caminho da pasta assets
-            document.getElementById('tatu').src = 'assets/' + imgNome;
+            document.getElementById('tatu').src = imgNome;
             setTimeout(() => ir(3), 1000);
         }
     </script>
