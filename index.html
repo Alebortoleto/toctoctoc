@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOC TOC TOC - Oficial</title>
     <style>
-        :root { --primary: #00796b; --bg: #e0f7fa; --alert: #d32f2f; }
+        :root { --primary: #00796b; --bg: #e0f7fa; --alert: #d32f2f; --happy: #2e7d32; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; height: 100vh; }
         .app { width: 100%; max-width: 420px; background: white; height: 100%; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         .tela { display: none; flex-direction: column; align-items: center; padding: 20px; height: 100%; overflow-y: auto; text-align: center; }
@@ -22,7 +22,10 @@
         .btn-main { background: var(--primary); color: white; padding: 15px; width: 100%; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         
         .log-card { background: #f1f8e9; border-left: 5px solid var(--primary); padding: 12px; margin-bottom: 12px; text-align: left; font-size: 12px; border-radius: 0 10px 10px 0; }
+        
+        /* Cores dos Alertas */
         .tag-alerta { background: var(--alert); color: white; padding: 3px 7px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+        .tag-feliz { background: var(--happy); color: white; padding: 3px 7px; border-radius: 4px; font-size: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -127,10 +130,25 @@
         const h = JSON.parse(localStorage.getItem('toctoc_hist')) || [];
         h.push({ data: new Date().toLocaleString('pt-BR'), itens: [...dadosRelato], crianca: JSON.parse(localStorage.getItem('toctoc_config')).crianca });
         localStorage.setItem('toctoc_hist', JSON.stringify(h));
-        const c = document.getElementById('painel-clinico');
-        c.innerHTML = h.reverse().map(l => {
-            let a = l.itens.find(i => i.val.includes("Fechada") || i.val.includes("Professora") || i.val.includes("Riram")) ? '<span class="tag-alerta">ALERTA DE EXCLUSÃO/TRAUMA</span>' : '';
-            return `<div class="log-card"><strong>${l.data} - ${l.crianca}</strong> ${a}<br>${l.itens.map(i => `• ${i.cat}: ${i.val}`).join('<br>')}</div>`;
+        
+        const container = document.getElementById('painel-clinico');
+        container.innerHTML = h.reverse().map(l => {
+            // LÓGICA DE ALERTA CORRIGIDA
+            let tag = "";
+            const sent = l.itens.find(i => i.cat === 'Sentimento').val;
+            
+            if (sent === 'Feliz') {
+                tag = '<span class="tag-feliz">ALERTA DE FELICIDADE</span>';
+            } else if (l.itens.find(i => i.val.includes("Fechada") || i.val.includes("Professora") || i.val.includes("Riram"))) {
+                tag = '<span class="tag-alerta">ALERTA DE EXCLUSÃO/TRAUMA</span>';
+            }
+
+            return `
+                <div class="log-card">
+                    <strong>${l.data} - ${l.crianca}</strong> ${tag}<br>
+                    ${l.itens.map(i => `• ${i.cat}: ${i.val}`).join('<br>')}
+                </div>
+            `;
         }).join('');
     }
 </script>
