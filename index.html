@@ -6,92 +6,49 @@
     <title>TOC TOC TOC</title>
     <style>
         :root { --cor-fundo: #e0f7fa; --cor-detalhe: #00796b; }
-        body { font-family: 'Comic Sans MS', sans-serif; background: var(--cor-fundo); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        .app-container { width: 100%; max-width: 400px; height: 90vh; background: white; border-radius: 30px; position: relative; display: flex; flex-direction: column; align-items: center; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        
-        /* Telas */
-        .tela { display: none; text-align: center; width: 100%; height: 100%; flex-direction: column; justify-content: space-around; }
+        body { font-family: sans-serif; background: var(--cor-fundo); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .app-container { width: 100%; max-width: 400px; height: 90vh; background: white; border-radius: 30px; display: flex; flex-direction: column; align-items: center; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .tela { display: none; text-align: center; width: 100%; flex-direction: column; justify-content: space-around; height: 100%; }
         .ativa { display: flex; }
-
-        /* A Porta (O Início de Tudo) */
-        .porta-img { width: 200px; cursor: pointer; transition: transform 0.2s; }
-        .porta-img:active { transform: scale(0.9); }
-
-        /* O Tatu e as Sensações */
-        .tatu-principal { width: 220px; margin-bottom: 20px; }
-        .grid-icones { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 10px; }
+        .porta-img { width: 180px; cursor: pointer; }
+        .tatu-principal { width: 200px; margin: 20px 0; }
+        .grid-icones { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
         .icon-btn { background: #f0f0f0; border-radius: 15px; padding: 10px; cursor: pointer; border: 2px solid transparent; }
-        .icon-btn img { width: 100%; }
-        .icon-btn:active { border-color: var(--cor-detalhe); background: #e0f2f1; }
-
-        h2 { color: var(--cor-detalhe); font-size: 20px; margin: 10px 0; }
-        .btn-voltar { font-size: 12px; color: #999; text-decoration: underline; cursor: pointer; margin-top: 10px; }
+        .icon-btn img { width: 100%; border-radius: 8px; }
+        h2 { color: var(--cor-detalhe); font-size: 1.2rem; }
     </style>
 </head>
 <body>
-
 <div class="app-container">
-
     <div id="tela-1" class="tela ativa">
         <h2>Bata na porta para falar...</h2>
-        <img src="assets/images/porta_fechada.png" class="porta-img" onclick="irPara(2)" alt="Porta do Mundo">
+        <img src="assets/images/porta_fechada.png" class="porta-img" onclick="irPara(2)">
         <p>"TOC TOC TOC"</p>
     </div>
-
     <div id="tela-2" class="tela">
-        <h2>Como está seu corpo?</h2>
+        <h2>O que o Tatu está sentindo?</h2>
         <img src="assets/images/tatu_neutro.png" id="tatu-visual" class="tatu-principal">
-        
         <div class="grid-icones">
-            <div class="icon-btn" onclick="sentir('no', 'tatu_enrolado.png')">
-                <img src="assets/images/sensacao_no.png"><p>Nó</p>
-            </div>
-            <div class="icon-btn" onclick="sentir('explosao', 'tatu_triste.png')">
-                <img src="assets/images/sensacao_raio.png"><p>Explosão</p>
-            </div>
-            <div class="icon-btn" onclick="sentir('choro', 'tatu_triste.png')">
-                <img src="assets/images/sensacao_lagrimas.png"><p>Choro</p>
-            </div>
+            <div class="icon-btn" onclick="sentir('no', 'tatu_enrolado.png')"><img src="assets/images/sensacao_no.png"><p>Nó</p></div>
+            <div class="icon-btn" onclick="sentir('raiva', 'tatu_triste.png')"><img src="assets/images/sensacao_raio.png"><p>Explosão</p></div>
+            <div class="icon-btn" onclick="sentir('choro', 'tatu_triste.png')"><img src="assets/images/sensacao_lagrimas.png"><p>Choro</p></div>
         </div>
-        <div class="btn-voltar" onclick="irPara(1)">Voltar para a porta</div>
     </div>
-
     <div id="tela-3" class="tela">
-        <h2>Onde o Tatu estava?</h2>
-        <div class="grid-icones">
-            <div class="icon-btn" onclick="finalizar('Sala')"><img src="assets/images/sala.png"><p>Sala</p></div>
-            <div class="icon-btn" onclick="finalizar('Corredor')"><img src="assets/images/corredor.png"><p>Corredor</p></div>
-            <div class="icon-btn" onclick="finalizar('Pátio')"><img src="assets/images/patio.png"><p>Pátio</p></div>
-        </div>
-    </div>
-
-    <div id="tela-4" class="tela">
-        <h2>O TOC TOC foi ouvido!</h2>
+        <h2>A porta se abriu!</h2>
         <img src="assets/images/porta_aberta.png" class="porta-img">
-        <p>Seus pais já sabem. <br> O Tatu não está mais sozinho.</p>
-        <button onclick="irPara(1)" style="background:var(--cor-detalhe); color:white; border:none; padding:15px; border-radius:10px; font-weight:bold;">Reiniciar</button>
+        <p>O Tatu foi ouvido e acolhido.</p>
+        <button onclick="location.reload()" style="padding:15px; background:var(--cor-detalhe); color:white; border:none; border-radius:10px;">Reiniciar</button>
     </div>
-
 </div>
-
 <script>
-    let dadosRelato = { sensacao: '', local: '' };
-
     function irPara(tela) {
         document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
         document.getElementById('tela-' + tela).classList.add('ativa');
     }
-
     function sentir(tipo, imgTatu) {
-        dadosRelato.sensacao = tipo;
         document.getElementById('tatu-visual').src = "assets/images/" + imgTatu;
-        setTimeout(() => irPara(3), 800); // Vai para o local após a criança escolher a sensação
-    }
-
-    function finalizar(local) {
-        dadosRelato.local = local;
-        console.log("ALERTA CLÍNICO: Criança reportou " + dadosRelato.sensacao + " no " + local);
-        irPara(4);
+        setTimeout(() => irPara(3), 1000);
     }
 </script>
 </body>
