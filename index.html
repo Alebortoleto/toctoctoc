@@ -5,49 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOC TOC TOC - Apoio ao Diagnóstico</title>
     <style>
-        :root { --bg: #e0f7fa; --primary: #00796b; }
-        body { font-family: sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; touch-action: manipulation; }
-        .app-container { width: 100%; max-width: 400px; height: 95vh; background: white; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
+        :root { --bg: #e0f7fa; --primary: #00796b; --text: #333; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .app-container { width: 100%; max-width: 400px; height: 95vh; background: white; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; position: relative; }
         
-        .tela { display: none; flex-direction: column; align-items: center; justify-content: space-around; padding: 20px; height: 100%; box-sizing: border-box; }
+        .tela { display: none; flex-direction: column; align-items: center; padding: 25px; height: 100%; box-sizing: border-box; overflow-y: auto; }
         .ativa { display: flex; }
 
-        /* Estilos Visuais */
-        .porta-clique { width: 220px; cursor: pointer; transition: transform 0.1s; }
-        .porta-clique:active { transform: scale(0.95); }
-        
-        .tatu-central { width: 180px; margin: 10px 0; }
-        
+        /* Estilos de Interface */
+        .porta-clique { width: 200px; cursor: pointer; margin: 20px 0; }
+        .tatu-central { width: 160px; margin-bottom: 20px; }
         .grid-icones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; }
-        .btn-comunicacao { background: #f9f9f9; border: 4px solid transparent; border-radius: 20px; padding: 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+        .btn-comunicacao { background: #f9f9f9; border: 2px solid #eee; border-radius: 20px; padding: 10px; cursor: pointer; text-align: center; }
         .btn-comunicacao img { width: 100%; border-radius: 10px; }
-        .btn-comunicacao:active { border-color: var(--primary); background: #f0fdfa; }
+        .btn-comunicacao p { font-size: 10px; font-weight: bold; margin-top: 5px; color: var(--primary); }
 
-        /* Painel do Responsável (Escondido) */
-        .area-clinica { background: #333; color: #00ff00; font-family: monospace; font-size: 10px; padding: 10px; height: 150px; overflow-y: auto; text-align: left; }
+        /* Input de Identificação */
+        input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ccc; margin-top: 10px; font-size: 16px; }
+        
+        /* Tabela de Histórico Profissional */
+        .painel-historico { width: 100%; margin-top: 20px; border-collapse: collapse; font-size: 12px; }
+        .painel-historico th, .painel-historico td { border-bottom: 1px solid #eee; padding: 10px; text-align: left; }
+        .painel-historico th { color: var(--primary); font-weight: bold; }
+        
+        .btn-acao { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
 
-    <div id="t1" class="tela ativa">
+    <div id="t0" class="tela ativa">
+        <h2 style="color:var(--primary)">Quem é você?</h2>
+        <p style="font-size: 14px; color: #666;">Use um apelido para manter o sigilo (ex: Tatu-Azul)</p>
+        <input type="text" id="apelido-crianca" placeholder="Apelido da criança...">
+        <button class="btn-acao" onclick="iniciarApp()">COMEÇAR</button>
+    </div>
+
+    <div id="t1" class="tela">
         <h2 style="color:var(--primary)">TOC TOC TOC?</h2>
-        <img src="porta_batida.png" class="porta-clique" onclick="registrarAcao('Batida na Porta', 2)">
+        <p>Bata na porta para falar</p>
+        <img src="porta_batida.png" class="porta-clique" onclick="irPara(2)">
     </div>
 
     <div id="t2" class="tela">
-        <h2 style="color:var(--primary)">COMO ESTÁ O TATU?</h2>
+        <h2 style="color:var(--primary)">O QUE VOCÊ SENTE?</h2>
         <img src="tatu_neutro.png" id="tatu-img" class="tatu-central">
         <div class="grid-icones">
-            <div class="btn-comunicacao" onclick="registrarAcao('Nó na Garganta (Ansiedade/Sobrecarga)', 3, 'tatu_enrolado.png')">
-                <img src="sensacao_no.png">
+            <div class="btn-comunicacao" onclick="registrar('Nó (Ansiedade)', 'tatu_enrolado.png')">
+                <img src="sensacao_no.png"><p>NÓ</p>
             </div>
-            <div class="btn-comunicacao" onclick="registrarAcao('Explosão/Crise (Agressividade)', 3, 'tatu_triste.png')">
-                <img src="sensacao_raio.png">
+            <div class="btn-comunicacao" onclick="registrar('Explosão (Crise)', 'tatu_triste.png')">
+                <img src="sensacao_raio.png"><p>RAIVA</p>
             </div>
-            <div class="btn-comunicacao" onclick="registrarAcao('Tristeza/Isolamento', 3, 'tatu_triste.png')">
-                <img src="sensacao_lagrimas.png">
+            <div class="btn-comunicacao" onclick="registrar('Tristeza', 'tatu_triste.png')">
+                <img src="sensacao_lagrimas.png"><p>CHORO</p>
             </div>
         </div>
     </div>
@@ -55,43 +67,92 @@
     <div id="t3" class="tela">
         <h2 style="color:var(--primary)">ONDE?</h2>
         <div class="grid-icones">
-            <div class="btn-comunicacao" onclick="registrarAcao('Local: Sala de Aula', 4)"><img src="sala.png"></div>
-            <div class="btn-comunicacao" onclick="registrarAcao('Local: Corredor', 4)"><img src="corredor.png"></div>
-            <div class="btn-comunicacao" onclick="registrarAcao('Local: Pátio', 4)"><img src="patio.png"></div>
+            <div class="btn-comunicacao" onclick="finalizar('Sala de Aula')"><img src="sala.png"><p>SALA</p></div>
+            <div class="btn-comunicacao" onclick="finalizar('Corredor')"><img src="corredor.png"><p>CORREDOR</p></div>
+            <div class="btn-comunicacao" onclick="finalizar('Pátio')"><img src="patio.png"><p>PÁTIO</p></div>
         </div>
     </div>
 
     <div id="t4" class="tela">
-        <img src="porta_aberta.png" style="width:150px">
-        <h3 style="color:var(--primary)">Voz Registrada!</h3>
+        <img src="porta_aberta.png" style="width:100px">
+        <h3 style="margin: 5px 0;">Histórico de <span id="nome-tatu"></span></h3>
         
-        <div class="area-clinica" id="log-clinico">
-            [DADOS PARA ANÁLISE DE TEA]<br>
-        </div>
+        <table class="painel-historico" id="tabela-historico">
+            <thead>
+                <tr><th>Dia/Hora</th><th>Sensação</th><th>Local</th></tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
         
-        <button onclick="location.reload()" style="padding:10px; width:100%; border-radius:10px; border:none; background:#eee;">NOVA BATIDA</button>
+        <button class="btn-acao" onclick="irPara(1)" style="background:#eee; color:#333;">NOVA BATIDA</button>
+        <button onclick="limparTudo()" style="font-size: 10px; margin-top: 10px; background: none; border: none; color: red; cursor: pointer;">Limpar Histórico</button>
     </div>
 
 </div>
 
 <script>
-    function registrarAcao(descricao, proximaTela, imgAlteracao = null) {
-        // Registro dos dados
+    let relatoAtual = { sensacao: '', apelido: '' };
+
+    function iniciarApp() {
+        const nome = document.getElementById('apelido-crianca').value;
+        if(!nome) return alert("Por favor, escolha um apelido para o Tatu.");
+        relatoAtual.apelido = nome;
+        document.getElementById('nome-tatu').innerText = nome;
+        irPara(1);
+    }
+
+    function irPara(tela) {
+        document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+        document.getElementById('t' + tela).classList.add('ativa');
+        if(tela === 4) carregarHistorico();
+    }
+
+    function registrar(sensacao, imgTatu) {
+        relatoAtual.sensacao = sensacao;
+        document.getElementById('tatu-img').src = imgTatu;
+        setTimeout(() => irPara(3), 600);
+    }
+
+    function finalizar(local) {
         const agora = new Date();
-        const timestamp = agora.toLocaleTimeString();
-        const logEntry = `> ${timestamp}: ${descricao}<br>`;
-        document.getElementById('log-clinico').innerHTML += logEntry;
+        const dataStr = agora.toLocaleDateString() + " " + agora.toLocaleTimeString().substring(0,5);
+        
+        const novoLog = {
+            data: dataStr,
+            apelido: relatoAtual.apelido,
+            sensacao: relatoAtual.sensacao,
+            local: local
+        };
 
-        // Feedback visual do Tatu
-        if(imgAlteracao) {
-            document.getElementById('tatu-img').src = imgAlteracao;
+        // SALVAR NO NAVEGADOR (LocalStorage)
+        let logs = JSON.parse(localStorage.getItem('logs_toctoc')) || [];
+        logs.push(novoLog);
+        localStorage.setItem('logs_toctoc', JSON.stringify(logs));
+
+        irPara(4);
+    }
+
+    function carregarHistorico() {
+        const logs = JSON.parse(localStorage.getItem('logs_toctoc')) || [];
+        const tabela = document.querySelector('#tabela-historico tbody');
+        // Filtra apenas os logs desta criança específica (Apelido)
+        const meusLogs = logs.filter(l => l.apelido === relatoAtual.apelido).reverse();
+        
+        tabela.innerHTML = meusLogs.map(l => `
+            <tr>
+                <td>${l.data}</td>
+                <td>${l.sensacao}</td>
+                <td>${l.local}</td>
+            </tr>
+        `).join('');
+    }
+
+    function limparTudo() {
+        if(confirm("Deseja apagar o histórico?")) {
+            localStorage.removeItem('logs_toctoc');
+            carregarHistorico();
         }
-
-        // Transição de tela
-        setTimeout(() => {
-            document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
-            document.getElementById('t' + proximaTela).classList.add('ativa');
-        }, 500);
     }
 </script>
 </body>
