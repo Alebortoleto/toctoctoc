@@ -11,21 +11,21 @@
         .tela { display: none; flex-direction: column; align-items: center; padding: 20px; height: 100%; overflow-y: auto; text-align: center; }
         .ativa { display: flex; }
         
-        /* Elementos da Criança */
-        .img-fluxo { width: 180px; margin: 20px 0; cursor: pointer; transition: 0.2s; }
-        .img-fluxo:active { transform: scale(0.9); }
+        /* Personagem e Ícones */
+        .tatu-visual { width: 180px; height: 180px; object-fit: contain; margin: 15px 0; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
-        .btn-opcao { border: 3px solid #eee; border-radius: 20px; padding: 10px; cursor: pointer; background: #fff; }
-        .btn-opcao img { width: 70px; height: 70px; object-fit: contain; }
-        .btn-opcao p { font-size: 11px; font-weight: bold; margin: 5px 0 0; }
+        .btn-opcao { border: 3px solid #eee; border-radius: 20px; padding: 10px; cursor: pointer; background: #fff; transition: 0.2s; }
+        .btn-opcao:active { transform: scale(0.95); border-color: var(--primary); }
+        .btn-opcao img { width: 60px; height: 60px; object-fit: contain; }
+        .btn-opcao p { font-size: 11px; font-weight: bold; margin: 5px 0 0; color: #555; }
         
-        /* Cadastro Pais */
+        /* Inputs e Botões */
         input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; }
         .btn-main { background: var(--primary); color: white; padding: 15px; width: 100%; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         
-        /* Painel Clínico */
-        .log-card { background: #f1f8e9; border-left: 5px solid var(--primary); padding: 10px; margin-bottom: 10px; text-align: left; font-size: 12px; }
-        .tag-alerta { background: var(--alert); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; }
+        /* Relatório */
+        .log-card { background: #f1f8e9; border-left: 5px solid var(--primary); padding: 12px; margin-bottom: 12px; text-align: left; font-size: 12px; border-radius: 0 10px 10px 0; }
+        .tag-alerta { background: var(--alert); color: white; padding: 3px 7px; border-radius: 4px; font-size: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -33,8 +33,8 @@
 <div class="app">
 
     <div id="t0" class="tela ativa">
-        <h2 style="color:var(--primary)">Cadastro dos Pais</h2>
-        <p>Para proteger os dados e gerar o histórico clínico.</p>
+        <h2 style="color:var(--primary)">Cadastro de Proteção</h2>
+        <p style="font-size: 13px;">Identifique-se para começar a estratificação.</p>
         <input type="text" id="p_nome" placeholder="Seu Nome">
         <input type="tel" id="p_zap" placeholder="Seu WhatsApp">
         <input type="email" id="p_email" placeholder="Seu E-mail">
@@ -44,61 +44,68 @@
 
     <div id="t1" class="tela">
         <h2>Como está seu dia?</h2>
+        <img src="tatu_neutro.png" id="avatar-t1" class="tatu-visual">
         <div class="grid">
-            <div class="btn-opcao" onclick="fluxo('Humor', 'Sol (Feliz)', 2)"><img src="sol.png"><p>SOL</p></div>
-            <div class="btn-opcao" onclick="fluxo('Humor', 'Chuva (Triste)', 2)"><img src="chuva.png"><p>CHUVA</p></div>
+            <div class="btn-opcao" onclick="fluxo('Humor', 'Bom (Sol)', 2, 'tatu_feliz.png')">
+                <img src="sol.png"><p>SOL</p>
+            </div>
+            <div class="btn-opcao" onclick="fluxo('Humor', 'Difícil (Chuva)', 2, 'tatu_triste.png')">
+                <img src="chuva.png"><p>CHUVA</p>
+            </div>
         </div>
     </div>
 
     <div id="t2" class="tela">
         <h2>Onde o Tatu está?</h2>
+        <img src="tatu_neutro.png" id="avatar-t2" class="tatu-visual">
         <div class="grid">
             <div class="btn-opcao" onclick="fluxo('Local', 'Sala de Aula', 3)"><img src="sala.png"><p>SALA</p></div>
-            <div class="btn-opcao" onclick="fluxo('Local', 'Corredor/Isolamento', 3)"><img src="corredor.png"><p>CORREDOR</p></div>
+            <div class="btn-opcao" onclick="fluxo('Local', 'Corredor', 3)"><img src="corredor.png"><p>CORREDOR</p></div>
             <div class="btn-opcao" onclick="fluxo('Local', 'Pátio', 3)"><img src="patio.png"><p>PÁTIO</p></div>
             <div class="btn-opcao" onclick="fluxo('Local', 'Banheiro', 3)"><img src="corredor.png"><p>BANHEIRO</p></div>
         </div>
     </div>
 
     <div id="t3" class="tela">
-        <h2>E a porta?</h2>
+        <h2>A porta está...</h2>
+        <img src="tatu_neutro.png" id="avatar-t3" class="tatu-visual">
         <div class="grid">
-            <div class="btn-opcao" onclick="fluxo('Dinâmica', 'Porta Aberta', 4)"><img src="porta_aberta.png"><p>ABERTA</p></div>
-            <div class="btn-opcao" onclick="fluxo('Dinâmica', 'Porta Fechada (Exclusão)', 4)"><img src="porta_fechada.png"><p>FECHADA</p></div>
-            <div class="btn-opcao" onclick="fluxo('Dinâmica', 'Tatu Batendo (Toc Toc)', 4)"><img src="porta_batida.png"><p>BATENDO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Porta', 'Aberta', 4)"><img src="porta_aberta.png"><p>ABERTA</p></div>
+            <div class="btn-opcao" onclick="fluxo('Porta', 'Fechada/Exclusão', 4)"><img src="porta_fechada.png"><p>FECHADA</p></div>
+            <div class="btn-opcao" onclick="fluxo('Porta', 'Toc Toc', 4)"><img src="porta_batida.png"><p>BATENDO</p></div>
         </div>
     </div>
 
     <div id="t4" class="tela">
         <h2>Quem estava lá?</h2>
+        <img src="tatu_neutro.png" id="avatar-t4" class="tatu-visual">
         <div class="grid">
-            <div class="btn-opcao" onclick="fluxo('Agente', 'Professor (Autoridade)', 5)"><img src="coroa.png"><p>COROA</p></div>
-            <div class="btn-opcao" onclick="fluxo('Agente', 'Colegas', 5)"><img src="muitos_tatus.png"><p>COLEGAS</p></div>
-            <div class="btn-opcao" onclick="fluxo('Agente', 'Ninguém (Isolamento)', 5)"><img src="sombra.png"><p>SOMBRA</p></div>
+            <div class="btn-opcao" onclick="fluxo('Quem', 'Professor (Autoridade)', 5)"><img src="coroa.png"><p>COROA</p></div>
+            <div class="btn-opcao" onclick="fluxo('Quem', 'Colegas', 5)"><img src="muitos_tatus.png"><p>COLEGAS</p></div>
         </div>
     </div>
 
     <div id="t5" class="tela">
         <h2>O que aconteceu?</h2>
         <div class="grid">
-            <div class="btn-opcao" onclick="fluxo('Ocorrência', 'Zombaria/Riso', 6)"><img src="grupo_bullying.png"><p>RIRAM DE MIM</p></div>
-            <div class="btn-opcao" onclick="fluxo('Ocorrência', 'Rejeição Social', 6)"><img src="grupo_sozinho.png"><p>NÃO GOSTAM DE MIM</p></div>
-            <div class="btn-opcao" onclick="fluxo('Ocorrência', 'Agressão/Dano', 6)"><img src="sensacao_raio.png"><p>ME BATERAM</p></div>
-            <div class="btn-opcao" onclick="fluxo('Ocorrência', 'Nada/Normal', 6)"><img src="tatu_neutro.png"><p>TUDO BEM</p></div>
+            <div class="btn-opcao" onclick="fluxo('Fato', 'Riram de mim', 6)"><img src="grupo_bullying.png"><p>RIRAM</p></div>
+            <div class="btn-opcao" onclick="fluxo('Fato', 'Fui excluído', 6)"><img src="grupo_sozinho.png"><p>ISOLADO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Fato', 'Agressão', 6)"><img src="sensacao_raio.png"><p>ME BATERAM</p></div>
+            <div class="btn-opcao" onclick="fluxo('Fato', 'Tudo Normal', 6)"><img src="tatu_neutro.png"><p>OK</p></div>
         </div>
     </div>
 
     <div id="t6" class="tela">
-        <h2>Como o corpo está?</h2>
+        <h2>O corpo sente...</h2>
         <div class="grid">
-            <div class="btn-opcao" onclick="fluxo('Físico', 'Nó/Ansiedade', 7)"><img src="sensacao_no.png"><p>NÓ</p></div>
-            <div class="btn-opcao" onclick="fluxo('Físico', 'Crise Aguda/Susto', 7)"><img src="sensacao_raio.png"><p>EXPLOSÃO</p></div>
-            <div class="btn-opcao" onclick="fluxo('Físico', 'Vontade de Sumir', 7)"><img src="sensacao_lagrimas.png"><p>CHORO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Corpo', 'Ansiedade (Nó)', 7, 'tatu_enrolado.png')"><img src="sensacao_no.png"><p>NÓ</p></div>
+            <div class="btn-opcao" onclick="fluxo('Corpo', 'Crise/Raiva', 7, 'tatu_triste.png')"><img src="sensacao_raio.png"><p>RAIO</p></div>
+            <div class="btn-opcao" onclick="fluxo('Corpo', 'Vontade de Sumir', 7, 'tatu_enrolado.png')"><img src="sensacao_lagrimas.png"><p>SUMIR</p></div>
         </div>
     </div>
 
     <div id="t7" class="tela">
-        <h2 style="color:var(--primary)">Diário do Tatu</h2>
+        <h2 style="color:var(--primary)">Relatório Clínico</h2>
         <div id="painel-clinico" style="width:100%"></div>
         <button class="btn-main" onclick="location.reload()">NOVA ENTRADA</button>
     </div>
@@ -106,11 +113,11 @@
 </div>
 
 <script>
-    let dadosAtuais = [];
-    let config = JSON.parse(localStorage.getItem('toctoc_config'));
+    let dadosRelato = [];
+    let imgAtual = 'tatu_neutro.png';
 
-    // Pula cadastro se já existir
-    if(config) { 
+    // Verifica cadastro
+    if(localStorage.getItem('toctoc_config')) { 
         document.getElementById('t0').classList.remove('ativa');
         document.getElementById('t1').classList.add('ativa');
     }
@@ -118,45 +125,55 @@
     function salvarCadastro() {
         const c = {
             pai: document.getElementById('p_nome').value,
-            zap: document.getElementById('p_zap').value,
             crianca: document.getElementById('c_nome').value
         };
+        if(!c.pai || !c.crianca) return alert("Preencha os dados básicos!");
         localStorage.setItem('toctoc_config', JSON.stringify(c));
         location.reload();
     }
 
-    function fluxo(categoria, valor, proxima) {
-        dadosAtuais.push({cat: categoria, val: valor});
+    function fluxo(cat, val, prox, img = null) {
+        if(img) imgAtual = img;
+        dadosRelato.push({cat: cat, val: val});
+        
         document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
-        document.getElementById('t'+proxima).classList.add('ativa');
-        if(proxima === 7) finalizarRelato();
+        const telaProx = document.getElementById('t'+prox);
+        telaProx.classList.add('ativa');
+
+        // Atualiza a imagem do Tatu nas telas que possuem o avatar
+        const avatar = document.getElementById('avatar-t' + prox);
+        if(avatar) avatar.src = imgAtual;
+
+        if(prox === 7) finalizar();
     }
 
-    function finalizarRelato() {
-        const historico = JSON.parse(localStorage.getItem('toctoc_historico')) || [];
+    function finalizar() {
+        const hist = JSON.parse(localStorage.getItem('toctoc_hist')) || [];
         const entrada = {
-            data: new Date().toLocaleString(),
-            detalhes: [...dadosAtuais],
+            data: new Date().toLocaleString('pt-BR'),
+            itens: [...dadosRelato],
             crianca: JSON.parse(localStorage.getItem('toctoc_config')).crianca
         };
-        historico.push(entrada);
-        localStorage.setItem('toctoc_historico', JSON.stringify(historico));
-        mostrarEstratificacao();
+        hist.push(entrada);
+        localStorage.setItem('toctoc_hist', JSON.stringify(hist));
+        gerarTabela();
     }
 
-    function mostrarEstratificacao() {
-        const hist = JSON.parse(localStorage.getItem('toctoc_historico')) || [];
+    function gerarTabela() {
+        const hist = JSON.parse(localStorage.getItem('toctoc_hist')) || [];
         const container = document.getElementById('painel-clinico');
-        container.innerHTML = hist.reverse().map(item => {
-            // Lógica de interpretação clínica
+        container.innerHTML = hist.reverse().map(log => {
+            // Análise de Risco de Bullying/Exclusão
             let alerta = "";
-            const exclusao = item.detalhes.find(d => d.val.includes("Fechada") || d.val.includes("Professor"));
-            if(exclusao) alerta = '<span class="tag-alerta">ALERTA: POSSÍVEL TRAUMA POR AUTORIDADE</span>';
+            const temExclusao = log.itens.find(i => i.val.includes("Fechada") || i.val.includes("Professor") || i.val.includes("Riram"));
+            if(temExclusao) alerta = '<span class="tag-alerta">RISCO DE EXCLUSÃO/BULLYING</span>';
 
             return `
                 <div class="log-card">
-                    <strong>${item.data}</strong> ${alerta}<br>
-                    ${item.detalhes.map(d => `• ${d.cat}: ${d.val}`).join('<br>')}
+                    <strong>${log.data}</strong> ${alerta}<br>
+                    <div style="margin-top:5px; line-height:1.4;">
+                        ${log.itens.map(i => `• ${i.cat}: <strong>${i.val}</strong>`).join('<br>')}
+                    </div>
                 </div>
             `;
         }).join('');
